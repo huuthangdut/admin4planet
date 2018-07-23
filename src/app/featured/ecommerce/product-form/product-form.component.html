@@ -1,0 +1,254 @@
+<h1 class="page-title"> eCommerce Products
+  <small>manage products</small>
+</h1>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="icon-home"></i>
+      <a routerLink="/dashboard">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <span>eCommerce</span>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000"
+        data-close-others="true"> Actions
+        <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li>
+          <a href="#">
+            <i class="icon-bell"></i> Action</a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-shield"></i> Another action</a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-user"></i> Something else here</a>
+        </li>
+        <li class="divider"> </li>
+        <li>
+          <a href="#">
+            <i class="icon-bag"></i> Separated link</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+  <div class="col-md-12">
+    <form class="form-horizontal form-row-seperated" #f="ngForm" (ngSubmit)="save()">
+      <div class="portlet light">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-basket font-green-sharp"></i>
+            <span class="caption-subject font-green-sharp bold uppercase">
+              {{ title }} </span>
+          </div>
+          <div class="actions btn-set">
+            <button type="button" (click)="navigateToProductList()" class="btn btn-default btn-circle">
+              <i class="fa fa-angle-left"></i> Back</button>
+            <button class="btn btn-success btn-circle ml-10" type="submit" [disabled]="f.invalid">
+              <i class=" fa fa-check "></i> Save changes
+            </button>
+          </div>
+        </div>
+        <div class="portlet-body ">
+          <div class="tabbable tabbable-line">
+            <ul class="nav nav-tabs ">
+              <li class="active ">
+                <a href="#tab_general" data-toggle="tab">
+                  General </a>
+              </li>
+              <li>
+                <a href="#tab_meta" data-toggle="tab">
+                  Meta </a>
+              </li>
+              <li *ngIf="id != 'new'">
+                <a href="#tab_images" data-toggle="tab">
+                  Images </a>
+              </li>
+            </ul>
+            <div class="tab-content ">
+              <div class="tab-pane active " id="tab_general">
+                <div class="form-body">
+                  <div class="form-group" [class.has-error]="name.touched && name.invalid">
+                    <label class="col-md-2 control-label">Name:
+                      <span class="required ">
+                        * </span>
+                    </label>
+                    <div class="col-md-10 ">
+                      <input type="text" hidden name="name" [(ngModel)]="product.id">
+                      <input type="text" class="form-control " (keyup)="createAlias();" name="name" [(ngModel)]="product.name" #name="ngModel"
+                        placeholder="Name" required>
+                      <span class="help-block" *ngIf="name.touched && name.invalid">
+                        <span *ngIf="name.errors.required">
+                          Product name is required.
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group" [class.has-error]="alias.touched && alias.invalid">
+                    <label class="col-md-2 control-label">Alias:
+                      <span class="required ">
+                        * </span>
+                    </label>
+                    <div class="col-md-10 ">
+                      <input type="text" class="form-control" id="alias" name="alias" [(ngModel)]="product.alias" #alias="ngModel" placeholder="Alias "
+                        required>
+                      <span class="help-block" *ngIf="alias.touched && alias.invalid">
+                        <span *ngIf="alias.errors.required">
+                          Alias is required.
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group" [class.has-error]="shortDescription.touched && shortDescription.invalid">
+                    <label class="col-md-2 control-label ">Short description:
+                      <span class="required ">*</span>
+                    </label>
+                    <div class="col-md-10 ">
+                      <textarea class="form-control " name="shortDescription " [(ngModel)]="product.shortDescription" #shortDescription="ngModel"
+                        required></textarea>
+                      <span class="help-block" *ngIf="shortDescription.touched && shortDescription.invalid">
+                        <span *ngIf="shortDescription.errors.required">
+                          Short description is required.
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group" [class.has-error]="description.touched && description.invalid">
+                    <label class="col-md-2 control-label ">Description
+                      <span class="required ">*</span>
+                    </label>
+                    <div class="col-md-10 ">
+                      <editor apiKey="9byhcrv7dz1t8bdwslufkff61j23dt5zoo6kovgiia8ws443 " [init]="tinyinit" [(ngModel)]="product.description " name="description"
+                        #description="ngModel" required></editor>
+                      <span class="help-block" *ngIf="description.touched && description.invalid">
+                        <span *ngIf="description.errors.required">
+                          Description is required.
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label class="col-md-2 control-label ">Categories:
+                      <span class="required ">
+                        * </span>
+                    </label>
+                    <div class="col-md-10" [class.has-error]="parentId.touched && parentId.invalid">
+                      <select id="categoryId" class="form-control " [(ngModel)]="product.categoryId" [ngModelOptions]="{standalone: true}" name="categoryId"
+                        #parentId="ngModel" required>
+                        <option value=" "></option>
+                        <option *ngFor="let c of categories " [value]="c.id ">{{ c.name }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group" [class.has-error]="unitPrice.touched && unitPrice.invalid">
+                    <label class="col-md-2 control-label ">Unit Price:
+                      <span class="required ">
+                        * </span>
+                    </label>
+                    <div class="col-md-10 ">
+                      <input type="number" class="form-control " [(ngModel)]="product.unitPrice " name="unitPrice" placeholder="Unit Price" #unitPrice="ngModel"
+                        min="1000" required>
+                      <span class="help-block" *ngIf="description.touched && description.invalid">
+                        <span *ngIf="unitPrice.errors.required">
+                          Unit price is required.
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group" [class.has-error]="originalPrice.touched && originalPrice.invalid">
+                    <label class="col-md-2 control-label ">Original Price:
+                      <span class="required ">
+                        * </span>
+                    </label>
+                    <div class="col-md-10 ">
+                      <input type="text " class="form-control" [(ngModel)]="product.originalPrice" name="originalPrice" placeholder="Original Price"
+                        #originalPrice="ngModel" required>
+                      <span class="help-block" *ngIf="originalPrice.touched && originalPrice.invalid">
+                        <span *ngIf="originalPrice.errors.required">
+                          Original price is required.
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label class="col-md-2 control-label ">Promotion Price:
+                    </label>
+                    <div class="col-md-10 ">
+                      <input type="text " class="form-control " [(ngModel)]="product.promotionPrice" name="promotionPrice" placeholder="Promotion Price ">
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label class="col-md-2 control-label ">Warranty:
+                    </label>
+                    <div class="col-md-6 ">
+                      <div class="input-group ">
+                        <input type="number " class="form-control" name="warranty" [(ngModel)]="product.warranty" placeholder="Warranty">
+                        <div class="input-group-addon ">months</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label class="col-md-2 control-label" for="status">Status:
+                      <span class="required ">
+                        * </span>
+                    </label>
+                    <div class="col-md-10 ">
+                      <select id="status" class="table-group-action-input form-control input-medium" [(ngModel)]="product.status" name="status">
+                        <option value="">Select...</option>
+                        <option value="1">Published</option>
+                        <option value="2">Not Published</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab_meta">
+                <div class="form-body ">
+                  <div class="form-group ">
+                    <label class="col-md-2 control-label ">Meta Title:</label>
+                    <div class="col-md-10 ">
+                      <input type="text " class="form-control maxlength-handler " [(ngModel)]="product.metaTitle" name="metaTitle" maxlength="100"
+                        placeholder="">
+                      <span class="help-block ">
+                        max 100 chars </span>
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label class="col-md-2 control-label ">Meta Keywords:</label>
+                    <div class="col-md-10 ">
+                      <textarea class="form-control maxlength-handler " rows="8 " [(ngModel)]="product.metaKeyword" name="metaKeyword" maxlength="1000 "></textarea>
+                      <span class="help-block ">
+                        max 1000 chars </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label ">Meta Description:</label>
+                    <div class="col-md-10 ">
+                      <textarea class="form-control maxlength-handler" rows="8 " [(ngModel)]="product.metaDescription" name="metaDescription" maxlength="255 "></textarea>
+                      <span class="help-block ">
+                        max 255 chars </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab_images" *ngIf="id != 'new'">
+                <product-image [productId]="id"></product-image>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- END PAGE CONTENT-->

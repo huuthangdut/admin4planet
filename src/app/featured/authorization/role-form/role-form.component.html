@@ -1,0 +1,92 @@
+<div bsModal #roleModal="bs-modal" class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form #f="ngForm" (ngSubmit)="saveChanges(f)" *ngIf="role">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideModal()"></button>
+          <h4 class="modal-title">{{ modalTitle }}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="tabbable-line">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#tab_role" data-toggle="tab">Role</a>
+              </li>
+              <li>
+                <a href="#tab_permission" data-toggle="tab">Permission</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_role">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-body">
+                      <div class="form-group" [class.has-error]="name.touched && name.invalid">
+                        <label class="control-label" for="name">Role name
+                          <span class="required" aria-required="true">* </span>
+                        </label>
+                        <input type="hidden" [(ngModel)]="role.id" name="id" />
+                        <input type="text" class="form-control" id="name" [(ngModel)]="role.name" name="name" #name="ngModel" placeholder="Role name"
+                          required>
+                        <span class="help-block" *ngIf="name.touched && name.invalid">
+                          <span *ngIf="name.errors.required">
+                            Role name is required.
+                          </span>
+                        </span>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label" for="description">Description</label>
+                        <input type="text" class="form-control" id="description" [(ngModel)]="role.description" #description="ngModel" name="description"
+                          placeholder="Description" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab_permission">
+                <tree-root [nodes]="nodes">
+                  <ng-template #treeNodeTemplate let-node let-index="index">
+                    <div [class.margin-left]="node.data.children.length == 0 && node.parentId == null">
+                      <div class="tree-title"> {{ node.data.name }}</div>
+                      <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline tree-item tree-role-create">
+                        <input type="checkbox" [id]="node.data.id" [(ngModel)]="node.data.canCreate" (change)="checkAllChildren(node.data)" [ngModelOptions]="{standalone: true}"
+                        />
+                        <span></span>
+                        Create
+                      </label>
+                      <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline tree-item tree-role-read">
+                        <input type="checkbox" [id]="node.data.id + 'r'" [(ngModel)]="node.data.canRead" (change)="checkAllChildren(node.data)" [ngModelOptions]="{standalone: true}"
+                        />
+                        <span></span>
+                        Read
+                      </label>
+                      <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline tree-item tree-role-update">
+                        <input type="checkbox" [id]="node.data.id + 'u'" [(ngModel)]="node.data.canUpdate" (change)="checkAllChildren(node.data)"
+                          [ngModelOptions]="{standalone: true}" />
+                        <span></span>
+                        Update
+                      </label>
+                      <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline tree-item tree-role-delete">
+                        <input type="checkbox" [id]="node.data.id + 'd'" [(ngModel)]="node.data.canDelete" (change)="checkAllChildren(node.data)"
+                          [ngModelOptions]="{standalone: true}" />
+                        <span></span>
+                        Delete
+                      </label>
+                    </div>
+
+                  </ng-template>
+                </tree-root>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="hideModal()" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn green" [disabled]="f.invalid">Save changes</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

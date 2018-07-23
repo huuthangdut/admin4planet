@@ -1,0 +1,116 @@
+<div bsModal #categoryModal="bs-modal" class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form #f="ngForm" (ngSubmit)="saveChanges(f)" *ngIf="category">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideModal(f)"></button>
+          <h4 class="modal-title">{{ modalTitle }}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="tabbable-line">
+            <ul class="nav nav-tabs ">
+              <li class="active">
+                <a href="#tab_basic_info" data-toggle="tab"> Basic information </a>
+              </li>
+              <li>
+                <a href="#tab_extra_info" data-toggle="tab"> Extra information </a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_basic_info">
+                <div class="form-body">
+                  <div class="form-group" [class.has-error]="name.touched && name.invalid">
+                    <label class="control-label" for="name">Category name
+                      <span class="required" aria-required="true">* </span>
+                    </label>
+                    <input type="hidden" [(ngModel)]="category.id" name="id" />
+                    <input type="text" class="form-control" (keyup)="createAlias()" id="name" [(ngModel)]="category.name" name="name" #name="ngModel"
+                      placeholder="Category name" required>
+                    <span class="help-block" *ngIf="name.touched && name.invalid">
+                      <span *ngIf="name.errors.required">
+                        Category name is required.
+                      </span>
+                    </span>
+                  </div>
+                  <div class="form-group" [class.has-error]="alias.touched && alias.invalid">
+                    <label class="control-label" for="alias">Alias
+                      <span class="required" aria-required="true">* </span>
+                    </label>
+                    <input type="text" class="form-control" id="alias" name="alias" [(ngModel)]="category.alias" #alias="ngModel" placeholder="Alias"
+                      required>
+                    <span class="help-block" *ngIf="alias.touched && alias.invalid">
+                      <span *ngIf="alias.errors.required">
+                        Alias is required.
+                      </span>
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="parentId"> Parent category
+                    </label>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <select id="parentId" class="form-control" [(ngModel)]="category.parentId" [ngModelOptions]="{standalone: true}" name="parentId"
+                          #parentId="ngModel">
+                          <option value=""> -- Root category -- </option>
+                          <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="description">Description
+                      <span class="required" aria-required="true">* </span>
+                    </label>
+                    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="category.description" #description="ngModel"
+                      placeholder="Description">
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="status">Status
+                      <span class="required" aria-required="true">* </span>
+                    </label>
+                    <select id="status" [(ngModel)]="category.status" class="table-group-action-input form-control input-medium" name="status">
+                      <option value="">Select...</option>
+                      <option value="1">Published</option>
+                      <option value="2">Not Published</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+              <div class="tab-pane" id="tab_extra_info">
+                <div class="form-group">
+                  <label class="control-label" for="meta-title">Meta title:
+                    <span class="required" aria-required="true">* </span>
+                  </label>
+                  <input type="text" class="form-control maxlength-handler" name="metaTitle" [(ngModel)]="category.metaTitle" #metaTitle="ngModel"
+                    maxlength="100" placeholder="Meta title">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="meta-title">Meta keywords:
+                    <span class="required" aria-required="true">* </span>
+                  </label>
+                  <textarea class="form-control maxlength-handler" rows="6" name="metaKeyword" [(ngModel)]="category.metaKeyword" #metaKeyword="ngModel"
+                    maxlength="1000"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="meta-title">Meta description:
+                    <span class="required" aria-required="true">* </span>
+                  </label>
+                  <textarea class="form-control maxlength-handler" rows="6" name="metaDescription" [(ngModel)]="category.metaDescription" #metaDescription="ngModel"
+                    maxlength="255"></textarea>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="hideModal(f)" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn green" [disabled]="f.invalid">Save changes</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

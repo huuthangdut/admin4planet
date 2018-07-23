@@ -1,0 +1,116 @@
+<div bsModal #userModal="bs-modal" class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form #f="ngForm" (ngSubmit)="saveChanges(f)" *ngIf="user">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideModal()"></button>
+          <h4 class="modal-title">{{ modalTitle }}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="tabbable-line">
+            <ul class="nav nav-tabs ">
+              <li class="active">
+                <a href="#tab_user_info" data-toggle="tab"> User Profile </a>
+              </li>
+              <li>
+                <a href="#tab_user_role" data-toggle="tab"> Role </a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_user_info">
+                <div class="col-md-3 col-sm-12">
+                  <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-new thumbnail" style="width: 128px; height: 128px;">
+                      <img [src]="localUrl" alt=""/>
+                    </div>
+                    <div>
+                      <span class="btn default btn-file" style="max-width: 200px;">
+                        <span class="fileinput-new"> Select avatar </span>
+                        <input type="file" (change)="showPreviewAvatar($event)" #avatar>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8 col-sm-12 pull-right">
+                  <div class="form-group">
+                    <input type="hidden" [(ngModel)]="user.id" name="id" />
+                    <label class="control-label">First name</label>
+                    <input type="text" [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" placeholder="First name" class="form-control"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Last name</label>
+                    <input type="text" [(ngModel)]="user.lastName" name="lastName" #lastName="ngModel" placeholder="Last name" class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="clearfix margin-top-10">
+                    <!-- <span class="label label-danger">Only support format *.jpg, *.png, *.jpeg</span> -->
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label">Username</label>
+                  <input type="text" [(ngModel)]="user.userName" name="userName" #userName="ngModel" placeholder="Last name" class="form-control"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label">Email</label>
+                  <input type="email" [(ngModel)]="user.email" name="email" #email="ngModel" placeholder="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Phone Number</label>
+                  <input type="text" [(ngModel)]="user.phoneNumber" name="phoneNumber" #phoneNumber="ngModel" placeholder="Phone number" class="form-control"
+                  />
+                </div>
+                <div *ngIf="showInputPassword">
+                  <div class="form-group">
+                    <label class="control-label">Password</label>
+                    <input type="password" [(ngModel)]="user.password" name="password" #password="ngModel" class="form-control" placeholder="Password"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Confirm password</label>
+                    <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel"
+                      name="confirmPassword" placeholder="Confirm password" required validateEqual="password">
+                    <span class="help-block" *ngIf="confirmPassword.touched && confirmPassword.invalid">
+                      <span *ngIf="confirmPassword.errors.required">
+                        Confirm password is required.
+                      </span>
+                      <span *ngIf="confirmPassword.errors">
+                        Password confirm does not match.
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="mt-checkbox" for="active"> Active
+                    <input type="checkbox" id="active" name="active" [(ngModel)]="user.status">
+                    <span></span>
+                  </label>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab_user_role">
+                <div class="form-group">
+                  <label class="control-label">Role </label>
+                  <div>
+                    <ss-multiselect-dropdown [options]="roles" [texts]="myTexts" [settings]="mySettings" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="user.roles"></ss-multiselect-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="hideModal()" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn green" [disabled]="f.invalid">Save changes</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

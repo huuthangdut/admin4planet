@@ -1,0 +1,220 @@
+<h1 class="page-title"> eCommerce Products
+  <small>manage products</small>
+</h1>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="icon-home"></i>
+      <a routerLink="/dashboard">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <span>eCommerce</span>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000"
+        data-close-others="true"> Actions
+        <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li>
+          <a href="#">
+            <i class="icon-bell"></i> Action</a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-shield"></i> Another action</a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-user"></i> Something else here</a>
+        </li>
+        <li class="divider"> </li>
+        <li>
+          <a href="#">
+            <i class="icon-bag"></i> Separated link</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- Begin: life time stats -->
+    <div class="portlet light">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-shopping-cart"></i>Product List </div>
+        <div class="actions">
+          <a href="javascript:;" class="btn btn-circle green" style="margin-right: 5px;">
+            <i class="fa fa-plus"></i>
+            <span class="hidden-xs" [routerLink]="['/ecommerce', 'products', 'new']"> New Product </span>
+          </a>
+          <div class="btn-group">
+            <a class="btn btn-circle btn-default dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+              <i class="fa fa-share"></i>
+              <span class="hidden-xs"> Tools </span>
+              <i class="fa fa-angle-down"></i>
+            </a>
+            <div class="dropdown-menu pull-right">
+              <li>
+                <a href="javascript:;"> Export to Excel </a>
+              </li>
+              <li>
+                <a href="javascript:;"> Export to CSV </a>
+              </li>
+              <li>
+                <a href="javascript:;"> Export to XML </a>
+              </li>
+              <li class="divider">
+                <a href="javascript:;"> Print Invoices </a>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="table-container">
+          <div class="table-actions-wrapper">
+            <span> </span>
+            <select class="table-group-action-input form-control input-inline input-small input-sm">
+              <option value="">Select...</option>
+              <option value="publish">Publish</option>
+              <option value="unpublished">Un-publish</option>
+              <option value="delete">Delete</option>
+            </select>
+            <button class="btn btn-sm btn-success table-group-action-submit">
+              <i class="fa fa-check"></i> Submit</button>
+          </div>
+          <table class="table table-striped table-bordered table-hover table-checkable">
+            <thead>
+              <tr role="row" class="heading">
+                <th width="1%">
+                  <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                    <input type="checkbox" class="group-checkable" [(ngModel)]="selectedAll" (change)="selectAll()" />
+                    <span></span>
+                  </label>
+                </th>
+                <th class="text-center" width="10%"> Image </th>
+                <th width="5%"> ID </th>
+                <th width="25%"> Product&nbsp;Name </th>
+                <th width="10%"> Price </th>
+                <th width="15%"> Category </th>
+                <th width="15%"> Date&nbsp;Created </th>
+                <th width="10%"> Status </th>
+                <th class="text-center" width="10%"> Actions </th>
+              </tr>
+              <tr role="row" class="filter">
+                <td></td>
+                <td></td>
+                <td>
+                  <input type="text" class="form-control form-filter input-sm" name="id"> </td>
+                <td>
+                  <input type="text" class="form-control form-filter input-sm" name="name"> </td>
+                <td>
+                  <div class="margin-bottom-5">
+                    <input type="text" class="form-control form-filter input-sm" name="product_price_from" placeholder="From" /> </div>
+                  <input type="text" class="form-control form-filter input-sm" name="product_price_to" placeholder="To" />
+                </td>
+                <td>
+                  <select name="product_category" class="form-control form-filter input-sm">
+                    <option value="">Select...</option>
+                    <option value="1">Mens</option>
+                    <option value="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Footwear</option>
+                    <option value="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clothing</option>
+                    <option value="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accessories</option>
+                    <option value="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fashion Outlet</option>
+                    <option value="6">Football Shirts</option>
+                    <option value="7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Premier League</option>
+                    <option value="8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Football League</option>
+                    <option value="9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Serie A</option>
+                    <option value="10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bundesliga</option>
+                    <option value="11">Brands</option>
+                    <option value="12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adidas</option>
+                    <option value="13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nike</option>
+                    <option value="14">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Airwalk</option>
+                    <option value="15">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USA Pro</option>
+                    <option value="16">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kangol</option>
+                  </select>
+                </td>
+                <td>
+                  <div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
+                    <input type="text" class="form-control form-filter input-sm" readonly name="product_created_from" placeholder="From">
+                    <span class="input-group-btn">
+                      <button class="btn btn-sm default" type="button">
+                        <i class="fa fa-calendar"></i>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
+                    <input type="text" class="form-control form-filter input-sm" readonly name="product_created_to " placeholder="To">
+                    <span class="input-group-btn">
+                      <button class="btn btn-sm default" type="button">
+                        <i class="fa fa-calendar"></i>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  <select name="product_status" class="form-control form-filter input-sm">
+                    <option value="">Select...</option>
+                    <option value="published">Published</option>
+                    <option value="notpublished">Not Published</option>
+                    <option value="deleted">Deleted</option>
+                  </select>
+                </td>
+                <td class="text-center">
+                  <div class="margin-bottom-5">
+                    <button class="btn btn-sm btn-circle btn-success filter-submit margin-bottom">
+                      <i class="fa fa-search"></i> Search</button>
+                  </div>
+                  <button class="btn btn-sm btn-circle btn-default filter-cancel">
+                    <i class="fa fa-times"></i> Reset</button>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items">
+                <td width="1%">
+                  <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                    <input type="checkbox" [(ngModel)]="item.selected" (change)="checkIfAllSelected()" />
+                    <span></span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <img src="http://www.placehold.it/80x180/EFEFEF/AAAAAA&amp;text=no+image" [alt]="item.name" style="width: 80px; height:
+                    80px; object-fit: cover; ">
+                </td>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.unitPrice}}</td>
+                <td>{{ item.productCategory.name }}</td>
+                <td>{{ item.dateCreated | date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <span [outerHTML]="item.status | auditstatus"></span>
+                </td>
+                <td class="text-center">
+                  <a [routerLink]="['/ecommerce', 'products', item.id]" class="btn btn-circle btn-outline green">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a (click)="deleteItem(item.id)" class="btn btn-circle btn-outline dark red">
+                    <i class="fa fa-trash-o"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row ">
+            <pagination [boundaryLinks]="true " [itemsPerPage]="pageSize " [totalItems]="totalItems " (pageChanged)="pageChanged($event) "
+              [(ngModel)]="currentPage " class="pull-right ">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: life time stats -->
+  </div>
+</div>

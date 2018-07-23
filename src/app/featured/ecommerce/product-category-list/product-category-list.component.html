@@ -1,0 +1,134 @@
+<h1 class="page-title"> Manage Product Category
+  <small>| Manage category in your system</small>
+</h1>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="icon-home"></i>
+      <a href="index.html"> Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a href="#">eCommerce</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <span>Category</span>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000"
+        data-close-others="true"> Actions
+        <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li>
+          <a href="#">
+            <i class="icon-bell"></i> Action</a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-shield"></i> Another action</a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-user"></i> Something else here</a>
+        </li>
+        <li class="divider"> </li>
+        <li>
+          <a href="#">
+            <i class="icon-bag"></i> Separated link</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet light ">
+      <div class="portlet-title">
+        <div class="caption font-dark">
+          <i class="icon-settings font-dark"></i>
+          <span class="caption-subject bold uppercase"> Manage Category</span>
+        </div>
+        <div class="actions">
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="table-toolbar">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="btn-group">
+                <button (click)="categoryModal.showAddModal()" class="btn green"> Add Category
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+              <div class="btn-group ml-5">
+                <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Action
+                  <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="javascript:;" (click)="deleteUsers();">
+                      <i class="fa fa-trash-o"></i> Delete </a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" (click)="activeUsers();">
+                      <i class="fa fa-file-excel-o"></i> Active </a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" (click)="deactiveUsers();">
+                      <i class="fa fa-file-excel-o"></i> Unactive </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="btn-group pull-right">
+                <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
+                  <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                  <li>
+                    <a href="javascript:;">
+                      <i class="fa fa-print"></i> Print </a>
+                  </li>
+                  <li>
+                    <a href="javascript:;">
+                      <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
+                  </li>
+                  <li>
+                    <a href="javascript:;">
+                      <i class="fa fa-file-excel-o"></i> Export to Excel </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <tree-root [nodes]="categoryNodes">
+            <ng-template #treeNodeTemplate let-node let-index="index">
+              <span class="tree-title">{{ node.data.name }}</span>
+              <span class="tree-action">
+                <a href="javascript:;" (click)="categoryModal.showEditModal(node.data.id)" class="green tree-action-item">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a href="javascript:;" (click)="deleteItem(node.data.id)" class="red tree-action-item">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </span>
+
+            </ng-template>
+          </tree-root>
+        </div>
+      </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+  </div>
+</div>
+
+<product-category-form #categoryModal></product-category-form>

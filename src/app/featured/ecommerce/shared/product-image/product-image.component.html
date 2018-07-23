@@ -1,0 +1,105 @@
+<form class="form-horizontal form-label-left" novalidate #f="ngForm" (ngSubmit)="save()">
+  <div class="col-md-3 col-sm-12">
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+      <div class="fileinput-new thumbnail" style="width: 250px; height: 250px; object-fit: cover;">
+        <img [src]="localImageUrl" alt="" />
+      </div>
+      <div>
+        <span class="btn default btn-file" style="max-width: 500px;">
+          <span class="fileinput-new"> Select image </span>
+          <input type="file" (change)="handleFileInput($event.target.files)" #avatar accept="image/*">
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-body row">
+      <div class="form-group form-md-line-input">
+        <div class="col-md-6 col-sm-8">
+          <select class="form-control" [(ngModel)]="image.type" name="type" required>
+            <option value="">Select image type</option>
+            <option value="1">Thumnail</option>
+            <option value="2">Small</option>
+            <option value="3">Large</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group form-md-line-input">
+        <div class="col-md-6 col-sm-8">
+          <input class="form-control" id="caption" name="caption" [(ngModel)]="image.caption" type="text" placeholder="Image caption">
+          <input type="hidden" [(ngModel)]="image.path" name="path" />
+          <input type="hidden" [(ngModel)]="image.productId" name="productId" />
+        </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn green" [disabled]="f.invalid">
+            <i class="fa fa-share "></i> Upload Files
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="form-group">
+</div>
+
+<table class="table table-bordered table-hover" *ngIf="images.length > 0">
+  <thead>
+    <tr role="row " class="heading ">
+      <th width="8% ">
+        Image
+      </th>
+      <th width="25% ">
+        Caption
+      </th>
+      <th width="8% ">
+        Sort Order
+      </th>
+      <th width="10% ">
+        Base Image
+      </th>
+      <th width="10% ">
+        Small Image
+      </th>
+      <th width="10% ">
+        Thumbnail
+      </th>
+      <th width="10% ">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let image of images">
+      <td>
+        <a href="{{ baseUrl + image.path }}" class="fancybox-button " data-rel="fancybox-button ">
+          <img class="img-responsive " [src]="baseUrl + image.path" [alt]="image.name">
+        </a>
+      </td>
+      <td>
+        <input type="text" class="form-control" [(ngModel)]="image.caption" name="caption">
+      </td>
+      <td>
+        <input type="number" class="form-control" [(ngModel)]="image.displayOrder" name="displayOrder">
+      </td>
+      <td>
+        <label>
+          <input type="radio" name="type" [(ngModel)]="image.type" value="1">
+        </label>
+      </td>
+      <td>
+        <label>
+          <input type="radio" name="type" [(ngModel)]="image.type" value="2">
+        </label>
+      </td>
+      <td>
+        <label>
+          <input type="radio" name="type" [(ngModel)]="image.type" value="3" checked>
+        </label>
+      </td>
+      <td class="text-center">
+        <button (click)="deleteImage(image.id)" class="btn red btn-outline btn-sm btn-circle">
+          <i class="fa fa-times"></i> Remove </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
